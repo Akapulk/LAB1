@@ -7,19 +7,20 @@ class och
 {
 private:
 	int count;
-	el *teale; // начало очередь
+	el *teale; // РЅР°С‡Р°Р»Рѕ РѕС‡РµСЂРµРґСЊ
+	el* head; // РєРѕРЅРµС† РѕС‡РµСЂРµРґСЊ
 protected:
 	el gethead();
 public:
-	och() { teale = NULL; count = 0; };
-	int getcount(); // возвращает count
+	och() { teale = NULL;  head = NULL; count = 0; };
+	int getcount(); // РІРѕР·РІСЂР°С‰Р°РµС‚ count
 	void show();
-	void put(); // добавление нового элемента
+	void put(); // РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 	void cut();
-	void copy(och *copy); // copy - Куда скопировать очередь
-	void sub(och *first, och *second); // сложить очередь first и second
+	void copy(och *copy); // copy - РљСѓРґР° СЃРєРѕРїРёСЂРѕРІР°С‚СЊ РѕС‡РµСЂРµРґСЊ
+	void sub(och *first, och *second); // СЃР»РѕР¶РёС‚СЊ РѕС‡РµСЂРµРґСЊ first Рё second
 	~och()
 	{
-		cout << "Работа деструктора базового класса" << endl;
+		cout << "Р Р°Р±РѕС‚Р° РґРµСЃС‚СЂСѓРєС‚РѕСЂР° Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°" << endl;
 	}
 };
