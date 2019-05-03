@@ -5,62 +5,64 @@ int och::getcount()
 }
 
 el och::gethead() {
-	return *teale;
+	return *head;
 }
 void och::cut()
 {
-	int i = 0;
-	el* current = teale;
+	int i = 1;
+	el* current = head;
 	el* buf;
 	int callback;
 	if (!teale) {
-		cout << "Î÷åðåäü ïóñòà" << endl;
+		cout << "ÐžÑ‡ÐµÑ€ÐµÐ´ÑŒ Ð¿ÑƒÑÑ‚Ð°" << endl;
 		system("pause");
 		return;
 	}
 	else {
 		teale = teale->prev;
+		count--;
+		while (i<count)
+		{
+			current=current->prev;
+			i++;
+		}
+		current->prev = NULL;
+		teale=current;
 	}
-	cout << "Ýëåìåíò óñïåøíî èçâëå÷åí èç î÷åðåäè" << endl;
+	cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð¸Ð·Ð²Ð»ÐµÑ‡ÐµÐ½ Ð¸Ð· Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸" << endl;
 	system("pause");
 }
 void och::copy(och* copy)
 {
 	if (!count)
 	{
-		cout << "Î÷åðåäü ïóñòà" << endl;
+		cout << "ÐžÑ‡ÐµÑ€ÐµÐ´ÑŒ Ð¿ÑƒÑÑ‚Ð°" << endl;
 		system("pause");
 		return;
 	}
-	el* current = teale;
-	el* c_Current = new el; // Ïåðåìåííàÿ äëÿ îáðàùåíèÿ ê êîïèÿì
-	copy->teale = c_Current;
+	el* current = head;
+	el* c_Current = new el; // ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð´Ð»Ñ Ð¾Ð±Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ Ðº ÐºÐ¾Ð¿Ð¸ÑÐ¼
+	copy->head = c_Current;
 	c_Current->prev = current->prev;
 	c_Current->x = current->x;
 	current = current->prev;
-	while (current != nullptr)
-	{
-		c_Current->prev = new el;
-		c_Current = c_Current->prev;
-		c_Current->x = current->x;
-		current = current->prev;
-	}
-	c_Current->prev = NULL;
 	copy->count = count;
-	cout << "Î÷åðåäü óñïåøíî ñêîïèðîâàíà" << endl;
+	copy->teale = teale;
+	cout << "ÐžÑ‡ÐµÑ€ÐµÐ´ÑŒ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ ÑÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð°" << endl;
 	system("pause");
 }
 
 void och::put()
 {
 	int i=0,k;
-	cout << "Ââåäèòå êîëè÷åñòâî ýëèìåíòîâ íà ââîä:";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»Ð¸Ð¼ÐµÐ½Ñ‚Ð¾Ð² Ð½Ð° Ð²Ð²Ð¾Ð´:";
 	cin >> k;
 	while (i<k)
 	{
-		if (teale == NULL)
+		if (head == NULL)
 		{
 			teale = new el;
+			head = teale;
 			teale->prev = NULL;
 			cout << "x = ";
 			cin >> teale->x;
@@ -68,12 +70,10 @@ void och::put()
 		}
 		else
 		{
-			el *current = teale;
-
-			while (current->prev != NULL)
-				current = current->prev;
+			el* current = teale;
 			current->prev = new el;
 			current = current->prev;
+			teale =current;
 			current->prev = NULL;
 			cout << "x = ";
 			cin >> current->x;
@@ -82,7 +82,7 @@ void och::put()
 		}
 		i++;
 	}
-	cout << "Ýëåìåíòû óñïåøíî äîáàâëåíû" << endl;
+	cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ñ‹" << endl;
 	system("pause");
 }
 
@@ -91,10 +91,10 @@ void och::put()
 void och::show()
 {
 	int i = 0;
-	el *current = teale;
+	el *current = head;
 	if (!teale)
 	{
-		cout << "Î÷åðåäü ïóñòà" << endl;
+		cout << "ÐžÑ‡ÐµÑ€ÐµÐ´ÑŒ Ð¿ÑƒÑÑ‚Ð°" << endl;
 		system("pause");
 		return;
 	}
@@ -111,16 +111,16 @@ void och::sub(och *first, och *second)
 {
 	if (!first->getcount() || !second->getcount())
 	{
-		cout << "Î÷åðåäè ïóñòû" << endl;
+		cout << "ÐžÑ‡ÐµÑ€ÐµÐ´Ð¸ Ð¿ÑƒÑÑ‚Ñ‹" << endl;
 		system("pause");
 		return;
 	}
 	count = first->getcount() + second->getcount();
-	el *current = first->teale;
-	el *c_Current = new el; // Ïåðåìåííàÿ äëÿ îáðàùåíèÿ ê êîïèÿì
+	el *current = first->head;
+	el *c_Current = new el; // ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð´Ð»Ñ Ð¾Ð±Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ Ðº ÐºÐ¾Ð¿Ð¸ÑÐ¼
 	c_Current->prev = current->prev;
 	c_Current->x = current->x;
-	teale = c_Current;
+	head = c_Current;
 	current = current->prev;
 	while (current != nullptr)
 	{
@@ -129,7 +129,7 @@ void och::sub(och *first, och *second)
 		c_Current->x = current->x;
 		current = current->prev;
 	}
-	current = second->teale;
+	current = second->head;
 	while (current != nullptr)
 	{
 		c_Current->prev = new el;
@@ -138,6 +138,7 @@ void och::sub(och *first, och *second)
 		current = current->prev;
 	}
 	c_Current->prev = NULL;
-	cout << "Î÷åðåäè óñïåøíî îáúåäåíåíû è çàïèñàíû" << endl;
+	teale=c_Current;
+	cout << "ÐžÑ‡ÐµÑ€ÐµÐ´Ð¸ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð¾Ð±ÑŠÐµÐ´ÐµÐ½ÐµÐ½Ñ‹ Ð¸ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹" << endl;
 	system("pause");
 }
